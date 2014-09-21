@@ -1,0 +1,147 @@
+// Copyright (c) 2014 Mimetics Inc.
+// All Rights Reserved
+//
+// THIS SOFTWARE IS PROVIDED BY MIMETICS "AS IS" WITHOUT ANY EXPRESSED OR 
+// IMPLIED WARRANTIES.  IN NO CASE SHALL MIMETICS OR ANY CONTRIBUTORS BE
+// LIABLE IN ANY DAMAGES CAUSED BY THE USE OF THIS SOFTWARE.  
+//
+// FileName: spectr09.script
+// Version : 09.0
+//
+// Author  : myke predko
+//
+// Description: Take Spectrographic Reading of what Robot is on top of
+//
+// Release History:
+//  Spectro8 - Remove icon bmp that starts with "_"
+//  Spectro7 - Handle Spectrometer Results, 0-100
+//           - Do Spectro measurement, display 
+//           - Wait for Enter and return
+//           - Work with "_Header1"
+//  spectr09 - Renamed to work with GitHub convention
+meta("icon",                "Spectro8.b");
+meta("description",         "Spectrometer:");
+//
+int                         i;
+int                         spectroBlue;
+int                         spectroGreen;
+int                         spectroYellow;
+int                         spectroRed;
+int                         spectro880;
+int                         spectro940;
+str                         spectroValue;
+str                         temp;
+
+
+
+    syscall(loadpanelfile, "_exec2.p");
+    syscall(setpaneltext, "pgmname:Spectrometer");
+//    syscall(setcursorstartx, itos(0));  syscall(setcursorstarty, itos(0));
+//    syscall(drawbitmap, "Spectro3.b");
+    syscall(setpanelicon, "tools:Spectro8.b");
+    syscall(runpanelfile, "");
+
+    syscall(setcursorstartx, itos(0));  syscall(setcursorstarty, itos(0));
+    syscall(drawbitmap, "Spectro3.b");
+
+    spectroValue = syscall(spectroread, "");
+
+    for (i = 0; '-' != spectroValue.i; ++i) {
+    }
+    for (++i, temp = ""; '-' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectroBlue = stoi(temp);
+
+    for (++i, temp = ""; '-' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectroGreen = stoi(temp);
+
+    for (++i, temp = ""; '-' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectroYellow = stoi(temp);
+
+    for (++i, temp = ""; '-' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectroRed = stoi(temp);
+
+    for (++i, temp = ""; '-' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectro880 = stoi(temp);
+
+    for (++i, temp = ""; '\r' != spectroValue.i; ++i) {
+        temp = temp + spectroValue.i;
+    }
+    spectro940 = stoi(temp);
+
+    syscall(setcursorstartx, itos(8 + (17 * 0)));  
+    syscall(setcursorstarty, itos(38 - (spectroBlue / 3)));
+    syscall(setcursorendx,   itos(8 + (17 * 1)));  
+    syscall(setcursorendy,   itos(38 - (spectroGreen / 3)));
+    syscall(drawline, "");
+
+    syscall(setcursorstartx, itos(3 + (17 * 0)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectroBlue); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+    syscall(setcursorstartx, itos(3 + (17 * 1)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectroGreen); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+    
+    syscall(setcursorstartx, itos(8 + (17 * 1)));  
+    syscall(setcursorstarty, itos(38 - (spectroGreen / 3)));
+    syscall(setcursorendx,   itos(8 + (17 * 2)));  
+    syscall(setcursorendy,   itos(38 - (spectroYellow / 3)));
+    syscall(drawline, "");
+
+    syscall(setcursorstartx, itos(3 + (17 * 2)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectroYellow); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+    
+    syscall(setcursorstartx, itos(8 + (17 * 2)));  
+    syscall(setcursorstarty, itos(38 - (spectroYellow / 3)));
+    syscall(setcursorendx, itos(8 + (17 * 3)));  
+    syscall(setcursorendy, itos(38 - (spectroRed / 3)));
+    syscall(drawline, "");
+
+    syscall(setcursorstartx, itos(3 + (17 * 3)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectroRed); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+
+    syscall(setcursorstartx, itos(8 + (17 * 3)));  
+    syscall(setcursorstarty, itos(38 - (spectroRed / 3)));
+    syscall(setcursorendx, itos(8 + (17 * 4)));  
+    syscall(setcursorendy, itos(38 - (spectro880 / 3)));
+    syscall(drawline, "");
+
+    syscall(setcursorstartx, itos(3 + (17 * 4)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectro880); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+
+    syscall(setcursorstartx, itos(8 + (17 * 4)));  
+    syscall(setcursorstarty, itos(38 - (spectro880 / 3)));
+    syscall(setcursorendx, itos(8 + (17 * 5)));  
+    syscall(setcursorendy, itos(38 - (spectro940 / 3)));
+    syscall(drawline, "");
+
+    syscall(setcursorstartx, itos(3 + (17 * 5)));  
+    syscall(setcursorstarty, itos(42));
+    for (temp = itos(spectro940); 3 > len(temp); temp = " " + temp) {
+    }
+    syscall(drawsmalltext,   temp);
+
+    for (; "RUN:" == syscall(tostring, "4:" + syscall(getactivepanelstatus, ""));) {
+    }

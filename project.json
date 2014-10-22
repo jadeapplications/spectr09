@@ -1,12 +1,12 @@
 {
     "name": "spectr09",
-    "version": "9.0.0",
+    "version": "1.0.0",
     "manifest_version": 1,
     "project_type": "application",
     "executable_type": "c",
     "executable": "spectr09.script",
     "author": "myke predko",
-    "minimum_firmware_version": 40,
+    "minimum_firmware_version": 42,
     "dependencies": [
         "jadeapplications/stdPanelOutline"
     ]

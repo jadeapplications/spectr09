@@ -6,9 +6,9 @@ Take Spectrometer Reading of what the Jade Robot is on top of.
 ### Project Information
 ```
 Type              : C
-Version           : 02.0
+Version           : 01.0
 Author            : myke predko
-Firmware          : 40
+Firmware          : 42
 ```
 
 
